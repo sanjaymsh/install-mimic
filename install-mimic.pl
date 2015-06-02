@@ -151,7 +151,7 @@ EOUSAGE
 
 sub version()
 {
-	print "install-mimic 0.1.0.dev1520\n";
+	print "install-mimic 0.1.0\n";
 }
 
 sub debug($)
