@@ -132,7 +132,7 @@ sub usage($)
 	my ($err) = @_;
 	my $s = <<EOUSAGE
 Usage:	install-mimic [-v] [-r reffile] srcfile dstfile
-	install-mimic [-v] [-r reffile] file1 file2... directory
+	install-mimic [-v] [-r reffile] file1 [file2...] directory
 	install-mimic -V | -h
 
 	-h	display program usage information and exit
