@@ -55,6 +55,9 @@ INSTALL_PROGRAM?=	${INSTALL} ${COPY} ${STRIP} -o ${BINOWN} -g ${BINGRP} -m ${BIN
 INSTALL_SCRIPT?=	${INSTALL} ${COPY} -o ${BINOWN} -g ${BINGRP} -m ${BINMODE}
 INSTALL_DATA?=	${INSTALL} ${COPY} -o ${SHAREOWN} -g ${SHAREGRP} -m ${SHAREMODE}
 
+INDEX_FILES=	index-prologue-with-title.html README.html index-epilogue.html
+INDEX_GEN=	index-prologue-with-title.html README.html index.html
+
 all:		${SCRIPTS} ${MAN1}
 
 %:		%.pl
@@ -69,5 +72,22 @@ install:	all
 		${MKDIR} ${DESTDIR}${MANDIR}1
 		${INSTALL_DATA} ${MAN1} ${DESTDIR}${MANDIR}1
 
-clean:
+clean:		index-clean
 		${RM} ${SCRIPTS} ${MAN1}
+
+%.html:		%.md
+		markdown "$<" > "$@" || (${RM} "$@"; false)
+
+index-prologue-with-title.html:	README.html index-prologue.html
+		roam-html-update-title -f README.html -t index-prologue.html -o "$@" || \
+			(${RM} "$@"; false)
+
+index.html:	${INDEX_FILES}
+		cat ${INDEX_FILES} > "$@" || (${RM} "$@"; false)
+
+index-clean:
+		${RM} ${INDEX_GEN}
+
+index:		${INDEX_GEN}
+
+.PHONY:		index index-clean
