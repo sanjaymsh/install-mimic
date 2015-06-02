@@ -48,18 +48,19 @@ MAIN:
 {
 	my %opts;
 
-	getopts('hVv', \%opts) or usage 1;
+	getopts('hr:Vv', \%opts) or usage 1;
 	version if $opts{V};
 	usage 0 if $opts{h};
 	exit 0 if $opts{V} || $opts{h};
 	$verbose = $opts{v};
 
+	my $ref = $opts{r};
 	if (@ARGV > 1 && -d $ARGV[-1]) {
 		my $dir = pop @ARGV;
 
-		install_mimic $_, "$dir/".basename $_ for @ARGV;
+		install_mimic $_, "$dir/".basename($_), $ref for @ARGV;
 	} elsif (@ARGV == 2) {
-		install_mimic $ARGV[0], $ARGV[1];
+		install_mimic $ARGV[0], $ARGV[1], $ref;
 	} else {
 		usage 1;
 	}
@@ -130,12 +131,13 @@ sub usage($)
 {
 	my ($err) = @_;
 	my $s = <<EOUSAGE
-Usage:	install-mimic [-v] srcfile dstfile
-	install-mimic [-v] file1 file2... directory
+Usage:	install-mimic [-v] [-r reffile] srcfile dstfile
+	install-mimic [-v] [-r reffile] file1 file2... directory
 	install-mimic -V | -h
 
 	-h	display program usage information and exit
 	-V	display program version information and exit
+	-r	specify a reference file to obtain the information from
 	-v	verbose operation; display diagnostic output
 EOUSAGE
 	;

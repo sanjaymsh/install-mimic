@@ -31,10 +31,12 @@
 .Sh SYNOPSIS
 .Nm
 .Op Fl v
+.Op Fl r Ar reffile
 .Ar srcfile
 .Ar dstfile
 .Nm
 .Op Fl v
+.Op Fl r Ar reffile
 .Ar file1
 .Ar file2...
 .Ar directory
@@ -55,6 +57,10 @@ Options:
 .Bl -tag -width indent
 .It Fl h
 Display program usage information and exit.
+.It Fl r
+Specify a file to obtain the ownership and access information from;
+useful when installing a new file that should be similar to other files in
+the same location.
 .It Fl V
 Display program version information and exit.
 .It Fl v
@@ -78,6 +84,10 @@ Overwrite a system file with a local copy:
 Overwrite several files with local copies with the same name:
 .Pp
 .Dl install-mimic cinder/*.py /usr/lib/python2.7/dist-packages/cinder/
+.Pp
+Install a new file similar to a system file:
+.Pp
+.Dl install-mimic -v -r /usr/bin/install-mimic install-none /usr/bin/
 .Pp
 .Sh HISTORY
 The
