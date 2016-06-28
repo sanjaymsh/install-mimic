@@ -72,6 +72,9 @@ install:	all
 		${MKDIR} ${DESTDIR}${MANDIR}1
 		${INSTALL_DATA} ${MAN1} ${DESTDIR}${MANDIR}1
 
+test:		all
+		prove t
+
 clean:
 		${RM} ${SCRIPTS} ${MAN1}
 
@@ -85,4 +88,4 @@ dist:
 		rm -- "${PKG_TAR}"
 		@printf "\n===== Created %s.*\n\n" "${PKG_TAR}"
 
-.PHONY:		all install clean dist
+.PHONY:		all install test clean dist
