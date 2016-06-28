@@ -39,6 +39,7 @@ The source of the `install-mimic` utility may be obtained at
 - Make the usage() function fatal by default.
 - Add a Travis CI configuration file and a cpanfile.
 - Move development from GitLab to GitHub.
+- Switch the homepage URL to HTTPS.
 
 ### 0.1.0 (2015-06-02)
 
@@ -48,5 +49,5 @@ The source of the `install-mimic` utility may be obtained at
 
 Peter Pentchev <roam@ringlet.net>
 
-[devel]: http://devel.ringlet.net/misc/install-mimic/
+[devel]: https://devel.ringlet.net/misc/install-mimic/
 [github]: https://github.com/ppentchev/install-mimic
