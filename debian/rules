@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+
+override_dh_auto_build:
+	dh_auto_build
+	sed -ne '/^## Version history/,/^- First public release/p' README.md > changelog.md || (rm -f changelog.md; false)
+
+%:
+	dh "$@"
