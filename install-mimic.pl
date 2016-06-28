@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2015  Peter Pentchev
+# Copyright (c) 2015, 2016  Peter Pentchev
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -35,47 +35,41 @@ use POSIX ':sys_wait_h';
 
 my $verbose = 0;
 
-sub install_mimic($ $; $);
-
-sub run_command(@);
-sub check_wait_result($ $ $);
-
-sub usage($);
-sub version();
-sub debug($);
-
-MAIN:
+sub version()
 {
-	my %opts;
-
-	getopts('hr:Vv', \%opts) or usage 1;
-	version if $opts{V};
-	usage 0 if $opts{h};
-	exit 0 if $opts{V} || $opts{h};
-	$verbose = $opts{v};
-
-	my $ref = $opts{r};
-	if (@ARGV > 1 && -d $ARGV[-1]) {
-		my $dir = pop @ARGV;
-
-		install_mimic $_, "$dir/".basename($_), $ref for @ARGV;
-	} elsif (@ARGV == 2) {
-		install_mimic $ARGV[0], $ARGV[1], $ref;
-	} else {
-		usage 1;
-	}
+	say 'install-mimic 0.1.1';
 }
 
-sub install_mimic($ $; $)
+sub debug($)
 {
-	my ($src, $dst, $ref) = @_;
+	return unless $verbose;
 
-	$ref //= $dst;
-	my @st = stat $ref or
-	    die "Could not obtain information about $ref: $!\n";
-	my $res = run_command 'install', '-c', '-o', $st[4], '-g', $st[5],
-	    '-m', sprintf('%04o', S_IMODE($st[2])), $src, $dst;
-	debug $res;
+	my ($msg) = @_;
+	return unless defined $msg && length $msg;
+	$msg =~ s/\n*\Z//;
+	say $msg;
+}
+
+sub check_wait_result($ $ $)
+{
+	my ($stat, $pid, $name) = @_;
+
+	if (WIFEXITED($stat)) {
+		if (WEXITSTATUS($stat) != 0) {
+			die "Program '$name' (pid $pid) exited with ".
+			    "non-zero status ".WEXITSTATUS($stat)."\n";
+		}
+	} elsif (WIFSIGNALED($stat)) {
+		die "Program '$name' (pid $pid) was killed by signal ".
+		    WTERMSIG($stat)."\n";
+	} elsif (WIFSTOPPED($stat)) {
+		die "Program '$name' (pid $pid) was stopped by signal ".
+		    WSTOPSIG($stat)."\n";
+	} else {
+		die "Program '$name' (pid $pid) neither exited nor was ".
+		    "it killed or stopped; what does wait(2) status $stat ".
+		    "mean?!\n";
+	}
 }
 
 sub run_command(@)
@@ -105,31 +99,23 @@ sub run_command(@)
 	return $output;
 }
 
-sub check_wait_result($ $ $)
+sub install_mimic($ $; $)
 {
-	my ($stat, $pid, $name) = @_;
+	my ($src, $dst, $ref) = @_;
 
-	if (WIFEXITED($stat)) {
-		if (WEXITSTATUS($stat) != 0) {
-			die "Program '$name' (pid $pid) exited with ".
-			    "non-zero status ".WEXITSTATUS($stat)."\n";
-		}
-	} elsif (WIFSIGNALED($stat)) {
-		die "Program '$name' (pid $pid) was killed by signal ".
-		    WTERMSIG($stat)."\n";
-	} elsif (WIFSTOPPED($stat)) {
-		die "Program '$name' (pid $pid) was stopped by signal ".
-		    WSTOPSIG($stat)."\n";
-	} else {
-		die "Program '$name' (pid $pid) neither exited nor was ".
-		    "it killed or stopped; what does wait(2) status $stat ".
-		    "mean?!\n";
-	}
+	$ref //= $dst;
+	my @st = stat $ref or
+	    die "Could not obtain information about $ref: $!\n";
+	my $res = run_command 'install', '-c', '-o', $st[4], '-g', $st[5],
+	    '-m', sprintf('%04o', S_IMODE($st[2])), $src, $dst;
+	debug $res;
 }
 
-sub usage($)
+sub usage(;$)
 {
 	my ($err) = @_;
+	$err //= 1;
+
 	my $s = <<EOUSAGE
 Usage:	install-mimic [-v] [-r reffile] srcfile dstfile
 	install-mimic [-v] [-r reffile] file1 [file2...] directory
@@ -149,17 +135,24 @@ EOUSAGE
 	}
 }
 
-sub version()
+MAIN:
 {
-	print "install-mimic 0.1.0\n";
-}
+	my %opts;
 
-sub debug($)
-{
-	return unless $verbose;
+	getopts('hr:Vv', \%opts) or usage;
+	version if $opts{V};
+	usage 0 if $opts{h};
+	exit 0 if $opts{V} || $opts{h};
+	$verbose = $opts{v};
 
-	my ($msg) = @_;
-	return unless defined $msg && length $msg;
-	$msg =~ s/\n*\Z//;
-	say $msg;
+	my $ref = $opts{r};
+	if (@ARGV > 1 && -d $ARGV[-1]) {
+		my $dir = pop @ARGV;
+
+		install_mimic $_, "$dir/".basename($_), $ref for @ARGV;
+	} elsif (@ARGV == 2) {
+		install_mimic $ARGV[0], $ARGV[1], $ref;
+	} else {
+		usage;
+	}
 }

@@ -27,7 +27,7 @@ Install a new file similar to a system file:
 
 The source of the `install-mimic` utility may be obtained at
 [its devel.ringlet.net homepage.][devel]  It is developed in
-[a GitLab Git repository.][gitlab]
+[a GitHub Git repository.][github]
 
 The current version of `install-mimic` is **install_mimic-0.1.0**:
 
@@ -35,6 +35,16 @@ The current version of `install-mimic` is **install_mimic-0.1.0**:
 - [install_mimic-0.1.0.tar.bz2][im-0.1.0.tar.bz2] [(sig)][im-0.1.0.tar.bz2.asc]
 
 ## Version history
+
+### 0.1.1 (2016-06-28)
+
+- Add the internal "dist" target for creating distribution tarballs.
+- Add a test suite.
+- Reorder the functions a bit to avoid prototype declarations.
+- Make the usage() function fatal by default.
+- Add a Travis CI configuration file and a cpanfile.
+- Move development from GitLab to GitHub.
+- Switch the homepage URL to HTTPS.
 
 ### 0.1.0 (2015-06-02)
 
@@ -44,8 +54,8 @@ The current version of `install-mimic` is **install_mimic-0.1.0**:
 
 Peter Pentchev <roam@ringlet.net>
 
-[devel]: http://devel.ringlet.net/misc/install-mimic/
-[gitlab]: https://gitlab.com/ppentchev/install-mimic
+[devel]: https://devel.ringlet.net/misc/install-mimic/
+[github]: https://github.com/ppentchev/install-mimic
 
 [im-0.1.0.tar.gz]: http://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.gz
 [im-0.1.0.tar.gz.asc]: http://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.gz.asc
