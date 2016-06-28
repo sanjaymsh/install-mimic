@@ -29,10 +29,17 @@ The source of the `install-mimic` utility may be obtained at
 [its devel.ringlet.net homepage.][devel]  It is developed in
 [a GitHub Git repository.][github]
 
-The current version of `install-mimic` is **install_mimic-0.1.0**:
+The current version of `install-mimic` is **install_mimic-0.1.1**:
 
-- [install_mimic-0.1.0.tar.gz][im-0.1.0.tar.gz] [(sig)][im-0.1.0.tar.gz.asc]
-- [install_mimic-0.1.0.tar.bz2][im-0.1.0.tar.bz2] [(sig)][im-0.1.0.tar.bz2.asc]
+- [install-mimic-0.1.1.tar.gz][im-0.1.1.tar.gz] [(sig)][im-0.1.1.tar.gz.asc]
+- [install-mimic-0.1.1.tar.bz2][im-0.1.1.tar.bz2] [(sig)][im-0.1.1.tar.bz2.asc]
+- [install-mimic-0.1.1.tar.xz][im-0.1.1.tar.xz] [(sig)][im-0.1.1.tar.xz.asc]
+
+Some older versions are also available:
+
+- install-mimic-0.1.0
+  + [install\_mimic-0.1.0.tar.gz][im-0.1.0.tar.gz] [(sig)][im-0.1.0.tar.gz.asc]
+  + [install\_mimic-0.1.0.tar.bz2][im-0.1.0.tar.bz2] [(sig)][im-0.1.0.tar.bz2.asc]
 
 ## Version history
 
@@ -61,3 +68,10 @@ Peter Pentchev <roam@ringlet.net>
 [im-0.1.0.tar.gz.asc]: http://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.gz.asc
 [im-0.1.0.tar.bz2]: http://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.bz2
 [im-0.1.0.tar.bz2.asc]: http://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.bz2.asc
+
+[im-0.1.1.tar.gz]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.gz
+[im-0.1.1.tar.gz.asc]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.gz.asc
+[im-0.1.1.tar.bz2]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.bz2
+[im-0.1.1.tar.bz2.asc]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.bz2.asc
+[im-0.1.1.tar.xz]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.xz
+[im-0.1.1.tar.xz.asc]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.xz.asc
