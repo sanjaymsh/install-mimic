@@ -37,7 +37,7 @@ The source of the `install-mimic` utility may be obtained at
 - Add a test suite.
 - Reorder the functions a bit to avoid prototype declarations.
 - Make the usage() function fatal by default.
-- Add a Travis CI configuration file.
+- Add a Travis CI configuration file and a cpanfile.
 - Move development from GitLab to GitHub.
 
 ### 0.1.0 (2015-06-02)
