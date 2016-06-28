@@ -22,8 +22,11 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-PACKAGE?=	install_mimic
-VERSION?=	0.1.1
+PACKAGE=	install_mimic
+VERSION=	`perl install-mimic.pl -V | awk "{print \\$$2}"`
+
+PKG_DIR?=	..
+PKG_TAR=	${PKG_DIR}/${PACKAGE}-${VERSION}.tar
 
 SCRIPTS?=	install-mimic
 MAN1?=		install-mimic.1.gz
@@ -72,4 +75,14 @@ install:	all
 clean:
 		${RM} ${SCRIPTS} ${MAN1}
 
-.PHONY:		all install clean
+dist:
+		[ -n "$$ALLOW_DIST_DEV" ] || devver
+		@printf "\n===== Creating %s.*\n\n" "${PKG_TAR}"
+		git archive --format=tar --prefix="${PACKAGE}-${VERSION}/" -o "${PKG_TAR}" HEAD || (rm -f -- "${PKG_TAR}"; false)
+		gzip -nc9 "${PKG_TAR}" > "${PKG_TAR}.gz" || (rm -f -- "${PKG_TAR}.gz"; false)
+		bzip2 -c9 "${PKG_TAR}" > "${PKG_TAR}.bz2" || (rm -f -- "${PKG_TAR}.bz2"; false)
+		xz -c9 "${PKG_TAR}" > "${PKG_TAR}.xz" || (rm -f -- "${PKG_TAR}.xz"; false)
+		rm -- "${PKG_TAR}"
+		@printf "\n===== Created %s.*\n\n" "${PKG_TAR}"
+
+.PHONY:		all install clean dist

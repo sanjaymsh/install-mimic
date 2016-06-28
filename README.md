@@ -33,6 +33,8 @@ The source of the `install-mimic` utility may be obtained at
 
 ### 0.1.1 (not yet)
 
+- Add the internal "dist" target for creating distribution tarballs.
+
 ### 0.1.0 (2015-06-02)
 
 - First public release.
