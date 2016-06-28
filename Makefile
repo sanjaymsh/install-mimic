@@ -22,7 +22,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-PACKAGE=	install_mimic
+PACKAGE=	install-mimic
 VERSION=	`perl install-mimic.pl -V | awk "{print \\$$2}"`
 
 PKG_DIR?=	..
