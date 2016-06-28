@@ -36,6 +36,7 @@ The source of the `install-mimic` utility may be obtained at
 - Add the internal "dist" target for creating distribution tarballs.
 - Add a test suite.
 - Reorder the functions a bit to avoid prototype declarations.
+- Make the usage() function fatal by default.
 
 ### 0.1.0 (2015-06-02)
 

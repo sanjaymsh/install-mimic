@@ -111,9 +111,11 @@ sub install_mimic($ $; $)
 	debug $res;
 }
 
-sub usage($)
+sub usage(;$)
 {
 	my ($err) = @_;
+	$err //= 1;
+
 	my $s = <<EOUSAGE
 Usage:	install-mimic [-v] [-r reffile] srcfile dstfile
 	install-mimic [-v] [-r reffile] file1 [file2...] directory
@@ -137,7 +139,7 @@ MAIN:
 {
 	my %opts;
 
-	getopts('hr:Vv', \%opts) or usage 1;
+	getopts('hr:Vv', \%opts) or usage;
 	version if $opts{V};
 	usage 0 if $opts{h};
 	exit 0 if $opts{V} || $opts{h};
@@ -151,6 +153,6 @@ MAIN:
 	} elsif (@ARGV == 2) {
 		install_mimic $ARGV[0], $ARGV[1], $ref;
 	} else {
-		usage 1;
+		usage;
 	}
 }
