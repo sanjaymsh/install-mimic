@@ -64,14 +64,14 @@ Peter Pentchev <roam@ringlet.net>
 [devel]: https://devel.ringlet.net/misc/install-mimic/
 [github]: https://github.com/ppentchev/install-mimic
 
-[im-0.1.0.tar.gz]: http://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.gz
-[im-0.1.0.tar.gz.asc]: http://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.gz.asc
-[im-0.1.0.tar.bz2]: http://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.bz2
-[im-0.1.0.tar.bz2.asc]: http://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.bz2.asc
+[im-0.1.0.tar.gz]: https://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.gz
+[im-0.1.0.tar.gz.asc]: https://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.gz.asc
+[im-0.1.0.tar.bz2]: https://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.bz2
+[im-0.1.0.tar.bz2.asc]: https://devel.ringlet.net/misc/install-mimic/install_mimic-0.1.0.tar.bz2.asc
 
-[im-0.1.1.tar.gz]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.gz
-[im-0.1.1.tar.gz.asc]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.gz.asc
-[im-0.1.1.tar.bz2]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.bz2
-[im-0.1.1.tar.bz2.asc]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.bz2.asc
-[im-0.1.1.tar.xz]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.xz
-[im-0.1.1.tar.xz.asc]: http://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.xz.asc
+[im-0.1.1.tar.gz]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.gz
+[im-0.1.1.tar.gz.asc]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.gz.asc
+[im-0.1.1.tar.bz2]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.bz2
+[im-0.1.1.tar.bz2.asc]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.bz2.asc
+[im-0.1.1.tar.xz]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.xz
+[im-0.1.1.tar.xz.asc]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.1.1.tar.xz.asc
