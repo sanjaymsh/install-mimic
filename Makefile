@@ -1,4 +1,4 @@
-# Copyright (c) 2015  Peter Pentchev
+# Copyright (c) 2015, 2016  Peter Pentchev
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -23,7 +23,7 @@
 # SUCH DAMAGE.
 
 PACKAGE?=	install_mimic
-VERSION?=	0.1.0
+VERSION?=	0.1.1
 
 SCRIPTS?=	install-mimic
 MAN1?=		install-mimic.1.gz

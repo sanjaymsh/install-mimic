@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2015  Peter Pentchev
+# Copyright (c) 2015, 2016  Peter Pentchev
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -151,7 +151,7 @@ EOUSAGE
 
 sub version()
 {
-	print "install-mimic 0.1.0\n";
+	print "install-mimic 0.1.1.dev544\n";
 }
 
 sub debug($)
