@@ -27,7 +27,7 @@ Install a new file similar to a system file:
 
 The source of the `install-mimic` utility may be obtained at
 [its devel.ringlet.net homepage.][devel]  It is developed in
-[a GitLab Git repository.][gitlab]
+[a GitHub Git repository.][github]
 
 ## Version history
 
@@ -38,6 +38,7 @@ The source of the `install-mimic` utility may be obtained at
 - Reorder the functions a bit to avoid prototype declarations.
 - Make the usage() function fatal by default.
 - Add a Travis CI configuration file.
+- Move development from GitLab to GitHub.
 
 ### 0.1.0 (2015-06-02)
 
@@ -48,4 +49,4 @@ The source of the `install-mimic` utility may be obtained at
 Peter Pentchev <roam@ringlet.net>
 
 [devel]: http://devel.ringlet.net/misc/install-mimic/
-[gitlab]: https://gitlab.com/ppentchev/install-mimic
+[github]: https://github.com/ppentchev/install-mimic
