@@ -174,7 +174,7 @@ for my $f (keys %files) {
 	$_->{owner} = $owner for values %{$files{$f}};
 }
 
-my $prog = './install-mimic';
+my $prog = $ENV{INSTALL_MIMIC} // './install-mimic';
 
 plan tests => 56;
 
