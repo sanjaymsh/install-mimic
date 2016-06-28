@@ -71,3 +71,5 @@ install:	all
 
 clean:
 		${RM} ${SCRIPTS} ${MAN1}
+
+.PHONY:		all install clean
