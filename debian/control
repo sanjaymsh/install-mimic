@@ -10,8 +10,8 @@ Vcs-Browser: https://github.com/ppentchev/install-mimic/tree/debian
 Testsuite: autopkgtest
 
 Package: install-mimic
-Architecture: all
-Depends: ${misc:Depends}, ${perl:Depends}
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
 Multi-Arch: foreign
 Description: overwrite files and preserve their ownership
  The install-mimic utility copies the specified files to the specified

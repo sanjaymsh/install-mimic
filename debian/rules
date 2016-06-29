@@ -1,5 +1,14 @@
 #!/usr/bin/make -f
 
+# Aim for the top, adapt if anything should break on the buildds.
+DEB_BUILD_MAINT_OPTIONS=	hardening=+all
+export DEB_BUILD_MAINT_OPTIONS
+
+ifneq (,$(filter werror,$(DEB_BUILD_OPTIONS)))
+DEB_CFLAGS_MAINT_APPEND=	-Werror
+export DEB_CFLAGS_MAINT_APPEND
+endif
+
 override_dh_auto_build:
 	dh_auto_build
 	sed -ne '/^## Version history/,/^- First public release/p' README.md > changelog.md || (rm -f changelog.md; false)
