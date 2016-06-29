@@ -1,5 +1,5 @@
-install-mimic (0.2.0-1) UNRELEASED; urgency=low
+install-mimic (0.2.0-1) unstable; urgency=low
 
   * Initial release. Closes: #828913.
 
- -- Peter Pentchev <roam@ringlet.net>  Wed, 29 Jun 2016 11:42:13 +0300
+ -- Peter Pentchev <roam@ringlet.net>  Wed, 29 Jun 2016 16:21:15 +0300
