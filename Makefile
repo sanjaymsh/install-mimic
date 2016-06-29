@@ -28,8 +28,28 @@ VERSION=	`perl install-mimic.pl -V | awk "{print \\$$2}"`
 PKG_DIR?=	..
 PKG_TAR=	${PKG_DIR}/${PACKAGE}-${VERSION}.tar
 
-SCRIPTS?=	install-mimic
+PROG?=		install-mimic
 MAN1?=		install-mimic.1.gz
+
+STD_CPPFLAGS?=	-D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700
+
+LFS_CPPFLAGS?=	-D_FILE_OFFSET_BITS=64
+LFS_LDFLAGS?=
+
+STD_CFLAGS?=	-std=c99
+WARN_CFLAGS?=	-Wall -W -pedantic -Wbad-function-cast \
+		-Wcast-align -Wchar-subscripts -Winline \
+		-Wmissing-prototypes -Wnested-externs -Wpointer-arith \
+		-Wredundant-decls -Wshadow -Wstrict-prototypes -Wwrite-strings
+
+CC?=		gcc
+CPPFLAGS?=
+CPPFLAGS+=	${STD_CPPFLAGS} ${LFS_CPPFLAGS}
+CFLAGS?=		-g -pipe
+CFLAGS+=	${STD_CFLAGS} ${WARN_CFLAGS}
+LDFLAGS?=
+LDFLAGS+=	${LFS_LDFLAGS}
+LIBS?=
 
 PREFIX?=	/usr
 BINDIR?=	${PREFIX}/bin
@@ -61,25 +81,33 @@ INSTALL_DATA?=	${INSTALL} ${COPY} -o ${SHAREOWN} -g ${SHAREGRP} -m ${SHAREMODE}
 INDEX_FILES=	index-prologue-with-title.html README.html index-epilogue.html
 INDEX_GEN=	index-prologue-with-title.html README.html index.html
 
-all:		${SCRIPTS} ${MAN1}
+all:		${PROG} ${MAN1}
 
-%:		%.pl
-		${CP} $< $@
+${PROG}:	${PROG}.o
+		${CC} ${LDFLAGS} -o ${PROG} ${PROG}.o ${LIBS}
 
-%.1.gz:		%.1
-		${GZIP} $< > $@
+${PROG}.o:	${PROG}.c
+		${CC} ${CPPFLAGS} ${CFLAGS} -c -o ${PROG}.o ${PROG}.c
+
+${MAN1}:	${PROG}.1
+		${GZIP} -cn9 ${PROG}.1 > ${MAN1} || (rm -f -- ${MAN1}; false)
 
 install:	all
 		${MKDIR} ${DESTDIR}${BINDIR}
-		${INSTALL_SCRIPT} ${SCRIPTS} ${DESTDIR}${BINDIR}
+		${INSTALL_SCRIPT} ${PROG} ${DESTDIR}${BINDIR}
 		${MKDIR} ${DESTDIR}${MANDIR}1
 		${INSTALL_DATA} ${MAN1} ${DESTDIR}${MANDIR}1
 
-test:		all
+test:		all install-mimic.pl
+		@printf "\n===== Testing the C implementation\n\n"
 		prove t
 
+		@printf "\n===== Testing the Perl 5 implementation\n\n"
+		[ -x install-mimic.pl ] || chmod +x install-mimic.pl
+		env INSTALL_MIMIC=./install-mimic.pl prove t
+
 clean:		index-clean
-		${RM} ${SCRIPTS} ${MAN1}
+		${RM} ${PROG} ${PROG}.o ${MAN1}
 
 dist:
 		[ -n "$$ALLOW_DIST_DEV" ] || devver

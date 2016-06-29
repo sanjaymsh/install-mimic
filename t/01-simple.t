@@ -81,8 +81,12 @@ sub check_file_attrs($ $)
 {
 	my ($fname, $data) = @_;
 
-	my $st = stat $fname or
-	    die "Could not stat $fname: $!\n";
+	my $st = stat $fname;
+	if (!$st) {
+		my $msg = $!;
+		fail "$fname has the correct $_: $msg" for qw(mode owner group);
+		return;
+	}
 	is $st->mode & 07777, $data->{mode}, "$fname has the correct mode";
 	is $st->uid, $data->{owner}[0], "$fname has the correct owner";
 	is $st->gid, $data->{owner}[1], "$fname has the correct group";
@@ -92,19 +96,29 @@ sub check_file_contents($ $)
 {
 	my ($fname, $contents) = @_;
 
-	open my $f, '<', $fname or
-	    die "Could not open $fname for reading: $!\n";
-	my $line = <$f>;
-	if (!defined $line) {
-		die "Could not read even a single line from $fname: $!\n";
+	my $desc = "$fname has the correct contents";
+	my $line;
+	eval {
+		open my $f, '<', $fname or
+		    die "Could not open $fname for reading: $!\n";
+		$line = <$f>;
+		if (!defined $line) {
+			die "Could not read even a single line from $fname: $!\n";
+		}
+		if (defined scalar <$f>) {
+			die "Read more than one line from $fname\n";
+		}
+		close $f or
+		    die "Could not close $fname after reading: $!\n";
+		chomp $line;
+	};
+	if ($@) {
+		my $msg = $@;
+		$msg =~ s/\n*\Z//;
+		fail "$desc: $msg";
+		return;
 	}
-	if (defined scalar <$f>) {
-		die "Read more than one line from $fname\n";
-	}
-	close $f or
-	    die "Could not close $fname after reading: $!\n";
-	chomp $line;
-	is $contents, $line, "$fname has the correct contents";
+	is $contents, $line, $desc;
 }
 
 sub capture($ @)
@@ -176,7 +190,7 @@ for my $f (keys %files) {
 
 my $prog = $ENV{INSTALL_MIMIC} // './install-mimic';
 
-plan tests => 56;
+plan tests => 82;
 
 my $c = capture(1, $prog);
 isnt $c->{exitcode}, 0, "$prog with no parameters failed";
@@ -241,3 +255,37 @@ for my $f (sort keys %files) {
 	check_file_attrs $dst, $data->{dst};
 	check_file_contents $dst, $data->{src}{contents};
 }
+
+my $ffname = "$d/dst/f3.txt";
+ok ! -e "$d/dst/f3.txt", "$ffname does not exist yet";
+
+$c = capture(0, $prog, '-r', "$d/dst/3.txt", '--', "$d/src/3.txt", $ffname);
+is $c->{exitcode}, 0, "'$prog -r' succeeded";
+is scalar @{$c->{lines}}, 0, "'$prog -r' output nothing";
+
+check_file_attrs $ffname, $files{3}{dst};
+check_file_contents $ffname, $files{3}{src}{contents};
+
+ok ! -e "$d/dst-r", "$d/dst-r/ does not exist yet";
+mkdir "$d/dst-r", 0755 or die "Could not create the $d/dst-r/ directory: $!\n";
+
+$c = capture(0, $prog, '-r', "$d/dst/2.txt", '--', (map "$d/src/$_.txt", sort keys %files), "$d/dst-r");
+is $c->{exitcode}, 0, "'$prog -r all' succeeded";
+is scalar @{$c->{lines}}, 0, "'$prog -r all' output nothing";
+
+for my $f (sort keys %files) {
+	my $data = $files{$f};
+	my $src = "$d/src/$f.txt";
+	my $dst = "$d/dst-r/$f.txt";
+
+	check_file_attrs $dst, $files{2}{dst};
+	check_file_contents $dst, $data->{src}{contents};
+}
+
+$c = capture(0, $prog, '-v', '--', "$d/src/3.txt", $ffname);
+is $c->{exitcode}, 0, "'$prog -v' succeeded";
+is scalar @{$c->{lines}}, 1, "'$prog -v' output a single line";
+
+$c = capture(0, $prog, '-v', '--', (map "$d/src/$_.txt", sort keys %files), "$d/dst-r");
+is $c->{exitcode}, 0, "'$prog -v all' succeeded";
+is scalar @{$c->{lines}}, scalar keys %files, "'$prog -v all' output the correct number of lines";
