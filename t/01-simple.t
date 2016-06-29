@@ -176,7 +176,7 @@ for my $f (keys %files) {
 
 my $prog = $ENV{INSTALL_MIMIC} // './install-mimic';
 
-plan tests => 78;
+plan tests => 82;
 
 my $c = capture(1, $prog);
 isnt $c->{exitcode}, 0, "$prog with no parameters failed";
@@ -267,3 +267,11 @@ for my $f (sort keys %files) {
 	check_file_attrs $dst, $files{2}{dst};
 	check_file_contents $dst, $data->{src}{contents};
 }
+
+$c = capture(0, $prog, '-v', '--', "$d/src/3.txt", $ffname);
+is $c->{exitcode}, 0, "'$prog -v' succeeded";
+is scalar @{$c->{lines}}, 1, "'$prog -v' output a single line";
+
+$c = capture(0, $prog, '-v', '--', (map "$d/src/$_.txt", sort keys %files), "$d/dst-r");
+is $c->{exitcode}, 0, "'$prog -v all' succeeded";
+is scalar @{$c->{lines}}, scalar keys %files, "'$prog -v all' output the correct number of lines";
