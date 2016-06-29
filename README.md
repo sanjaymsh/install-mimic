@@ -31,6 +31,8 @@ The source of the `install-mimic` utility may be obtained at
 
 ## Version history
 
+### 0.2.0 (not yet)
+
 ### 0.1.1 (2016-06-28)
 
 - Add the internal "dist" target for creating distribution tarballs.
