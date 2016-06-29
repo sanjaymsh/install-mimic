@@ -1,5 +1,5 @@
 Source: install-mimic
-Section: text
+Section: utils
 Priority: optional
 Maintainer: Peter Pentchev <roam@ringlet.net>
 Build-Depends: debhelper (>> 9.20160403~), perl
