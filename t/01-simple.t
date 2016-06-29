@@ -81,8 +81,12 @@ sub check_file_attrs($ $)
 {
 	my ($fname, $data) = @_;
 
-	my $st = stat $fname or
-	    die "Could not stat $fname: $!\n";
+	my $st = stat $fname;
+	if (!$st) {
+		my $msg = $!;
+		fail "$fname has the correct $_: $msg" for qw(mode owner group);
+		return;
+	}
 	is $st->mode & 07777, $data->{mode}, "$fname has the correct mode";
 	is $st->uid, $data->{owner}[0], "$fname has the correct owner";
 	is $st->gid, $data->{owner}[1], "$fname has the correct group";
@@ -92,19 +96,29 @@ sub check_file_contents($ $)
 {
 	my ($fname, $contents) = @_;
 
-	open my $f, '<', $fname or
-	    die "Could not open $fname for reading: $!\n";
-	my $line = <$f>;
-	if (!defined $line) {
-		die "Could not read even a single line from $fname: $!\n";
+	my $desc = "$fname has the correct contents";
+	my $line;
+	eval {
+		open my $f, '<', $fname or
+		    die "Could not open $fname for reading: $!\n";
+		$line = <$f>;
+		if (!defined $line) {
+			die "Could not read even a single line from $fname: $!\n";
+		}
+		if (defined scalar <$f>) {
+			die "Read more than one line from $fname\n";
+		}
+		close $f or
+		    die "Could not close $fname after reading: $!\n";
+		chomp $line;
+	};
+	if ($@) {
+		my $msg = $@;
+		$msg =~ s/\n*\Z//;
+		fail "$desc: $msg";
+		return;
 	}
-	if (defined scalar <$f>) {
-		die "Read more than one line from $fname\n";
-	}
-	close $f or
-	    die "Could not close $fname after reading: $!\n";
-	chomp $line;
-	is $contents, $line, "$fname has the correct contents";
+	is $contents, $line, $desc;
 }
 
 sub capture($ @)
