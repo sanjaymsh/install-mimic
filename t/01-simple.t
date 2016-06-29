@@ -176,7 +176,7 @@ for my $f (keys %files) {
 
 my $prog = $ENV{INSTALL_MIMIC} // './install-mimic';
 
-plan tests => 56;
+plan tests => 78;
 
 my $c = capture(1, $prog);
 isnt $c->{exitcode}, 0, "$prog with no parameters failed";
@@ -239,5 +239,31 @@ for my $f (sort keys %files) {
 	my $dst = "$d/dst/$f.txt";
 
 	check_file_attrs $dst, $data->{dst};
+	check_file_contents $dst, $data->{src}{contents};
+}
+
+my $ffname = "$d/dst/f3.txt";
+ok ! -e "$d/dst/f3.txt", "$ffname does not exist yet";
+
+$c = capture(0, $prog, '-r', "$d/dst/3.txt", '--', "$d/src/3.txt", $ffname);
+is $c->{exitcode}, 0, "'$prog -r' succeeded";
+is scalar @{$c->{lines}}, 0, "'$prog -r' output nothing";
+
+check_file_attrs $ffname, $files{3}{dst};
+check_file_contents $ffname, $files{3}{src}{contents};
+
+ok ! -e "$d/dst-r", "$d/dst-r/ does not exist yet";
+mkdir "$d/dst-r", 0755 or die "Could not create the $d/dst-r/ directory: $!\n";
+
+$c = capture(0, $prog, '-r', "$d/dst/2.txt", '--', (map "$d/src/$_.txt", sort keys %files), "$d/dst-r");
+is $c->{exitcode}, 0, "'$prog -r all' succeeded";
+is scalar @{$c->{lines}}, 0, "'$prog -r all' output nothing";
+
+for my $f (sort keys %files) {
+	my $data = $files{$f};
+	my $src = "$d/src/$f.txt";
+	my $dst = "$d/dst-r/$f.txt";
+
+	check_file_attrs $dst, $files{2}{dst};
 	check_file_contents $dst, $data->{src}{contents};
 }

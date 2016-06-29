@@ -34,6 +34,7 @@ The source of the `install-mimic` utility may be obtained at
 ### 0.2.0 (not yet)
 
 - Explicitly test the Perl 5 implementation in the "test" target.
+- Add tests for the -r reffile command-line option.
 
 ### 0.1.1 (2016-06-28)
 
