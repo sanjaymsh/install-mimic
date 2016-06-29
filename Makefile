@@ -73,7 +73,9 @@ install:	all
 		${INSTALL_DATA} ${MAN1} ${DESTDIR}${MANDIR}1
 
 test:		all
-		prove t
+		@printf "\n===== Testing the Perl 5 implementation\n\n"
+		[ -x install-mimic.pl ] || chmod +x install-mimic.pl
+		env INSTALL_MIMIC=./install-mimic.pl prove t
 
 clean:
 		${RM} ${SCRIPTS} ${MAN1}
