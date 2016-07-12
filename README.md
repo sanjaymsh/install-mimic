@@ -31,6 +31,8 @@ The source of the `install-mimic` utility may be obtained at
 
 ## Version history
 
+### 0.3.0 (not yet)
+
 ### 0.2.0 (2016-06-29)
 
 - Explicitly test the Perl 5 implementation in the "test" target.
