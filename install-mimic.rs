@@ -33,7 +33,6 @@ use std::io::Write;
 use std::os::unix::fs::MetadataExt;
 use std::path::Path;
 use std::process::Command;
-use std::process::exit;
 
 use getopts::Options;
 
@@ -51,26 +50,16 @@ const USAGE_STR: &'static str = "Usage:	install-mimic [-v] [-r reffile] srcfile 
 	-r	specify a reference file to obtain the information from
 	-v	verbose operation; display diagnostic output";
 
-fn fatal(msg: String) -> !
-{
-	writeln!(io::stderr(), "{}", msg).unwrap();
-	exit(1)
-}
-
-macro_rules! fatal {
-	($fmt:expr, $($arg:tt)*) => (fatal(format!($fmt, $($arg)*)));
-}
-
 fn usage() -> !
 {
-	fatal!("{}", USAGE_STR.to_string())
+	panic!("{}", USAGE_STR)
 }
 
 fn stat_fatal(fname: &String) -> fs::Metadata
 {
 	match fs::metadata(fname) {
 		Err(e) => {
-			fatal!("Could not examine {}: {}", fname, e)
+			panic!("Could not examine {}: {}", fname, e)
 		}
 		Ok(m) => { m }
 	}
@@ -98,12 +87,12 @@ fn install_mimic(src: &String, dst: &String, refname: &Option<String>, verbose: 
 	}
 	match cmd.status() {
 		Err(e) => {
-			fatal!("Could not run install: {}", e)
+			panic!("Could not run install: {}", e)
 		}
 		Ok(m) => {
 			match m.success() {
 				false => {
-					fatal!("Could not install {} as {}", src, dst)
+					panic!("Could not install {} as {}", src, dst)
 				}
 				true => { m }
 			}
@@ -161,13 +150,13 @@ fn main()
 		for f in &opts.free[0..lastidx] {
 			let basename = match Path::new(f).file_name() {
 				None => {
-					fatal!("Invalid source filename {}", f)
+					panic!("Invalid source filename {}", f)
 				}
 				Some(s) => { s }
 			};
 			let dstname = match dstpath.join(Path::new(basename)).to_str() {
 				None => {
-					fatal!("Could not build a destination path for {} in {}", f, dstpath.display())
+					panic!("Could not build a destination path for {} in {}", f, dstpath.display())
 				}
 				Some(s) => { s }
 			}.to_string();
