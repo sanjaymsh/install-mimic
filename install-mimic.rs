@@ -24,8 +24,6 @@
  * SUCH DAMAGE.
  */
 
-#![deny(warnings)]
-
 extern crate getopts;
 
 use std::env;
