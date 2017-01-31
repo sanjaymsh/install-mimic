@@ -55,7 +55,7 @@ fn usage() -> !
 	panic!("{}", USAGE_STR)
 }
 
-fn stat_fatal(fname: &String) -> fs::Metadata
+fn stat_fatal(fname: &str) -> fs::Metadata
 {
 	match fs::metadata(fname) {
 		Err(e) => {
@@ -65,22 +65,22 @@ fn stat_fatal(fname: &String) -> fs::Metadata
 	}
 }
 
-fn install_mimic(src: &String, dst: &String, refname: &Option<String>, verbose: bool)
+fn install_mimic(src: &str, dst: &str, refname: &Option<String>, verbose: bool)
 {
-	let filetoref = match refname {
-		&Some(_) => { refname.as_ref().unwrap() }
-		&None => { dst }
+	let filetoref = match *refname {
+		Some(ref s) => { s.clone() },
+		None => { String::from(dst) }
 	};
-	let stat = stat_fatal(filetoref);
+	let stat = stat_fatal(&filetoref);
 	let uid = stat.uid().to_string();
 	let gid = stat.gid().to_string();
 	let mode = format!("{:o}", stat.mode() & 0o7777);
 	let mut cmd = Command::new("install");
 	cmd .args(&["-c",
-	    "-o", uid.as_str(),
-	    "-g", gid.as_str(),
-	    "-m", mode.as_str(),
-	    "--", src.as_str(), dst.as_str()
+	    "-o", &uid,
+	    "-g", &gid,
+	    "-m", &mode,
+	    "--", src, dst,
 	    ]);
 	if verbose {
 		println!("{:?}", cmd);
