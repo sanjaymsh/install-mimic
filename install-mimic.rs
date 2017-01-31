@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2016  Peter Pentchev
+ * Copyright (c) 2016, 2017  Peter Pentchev
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,18 +58,16 @@ fn usage() -> !
 fn stat_fatal(fname: &str) -> fs::Metadata
 {
 	match fs::metadata(fname) {
-		Err(e) => {
-			panic!("Could not examine {}: {}", fname, e)
-		}
-		Ok(m) => { m }
+		Err(e) => panic!("Could not examine {}: {}", fname, e),
+		Ok(m) => m,
 	}
 }
 
 fn install_mimic(src: &str, dst: &str, refname: &Option<String>, verbose: bool)
 {
 	let filetoref = match *refname {
-		Some(ref s) => { s.clone() },
-		None => { String::from(dst) }
+		Some(ref s) => s.clone(),
+		None => String::from(dst),
 	};
 	let stat = stat_fatal(&filetoref);
 	let uid = stat.uid().to_string();
@@ -86,16 +84,10 @@ fn install_mimic(src: &str, dst: &str, refname: &Option<String>, verbose: bool)
 		println!("{:?}", cmd);
 	}
 	match cmd.status() {
-		Err(e) => {
-			panic!("Could not run install: {}", e)
-		}
-		Ok(m) => {
-			match m.success() {
-				false => {
-					panic!("Could not install {} as {}", src, dst)
-				}
-				true => { m }
-			}
+		Err(e) => panic!("Could not run install: {}", e),
+		Ok(m) => match m.success() {
+			false => panic!("Could not install {} as {}", src, dst),
+			true => m,
 		}
 	};
 }
@@ -113,8 +105,8 @@ fn main()
 		Err(e) => {
 			writeln!(io::stderr(), "{}", e).unwrap();
 			usage()
-		}
-		Ok(m) => { m }
+		},
+		Ok(m) => m,
 	};
 	if opts.opt_present("V") {
 		version();
@@ -135,30 +127,22 @@ fn main()
 	let lastidx = lastidx - 1;
 	let lastarg = &opts.free[lastidx];
 	let is_dir = match Path::new(lastarg).exists() {
-		true => {
-			stat_fatal(lastarg).is_dir()
-		}
-		false => {
-			match refname {
-				Some(_) => { false }
-				None => { usage() }
-			}
-		}
+		true => stat_fatal(lastarg).is_dir(),
+		false => match refname {
+			Some(_) => false,
+			None => usage(),
+		},
 	};
 	if is_dir {
 		let dstpath = Path::new(lastarg);
 		for f in &opts.free[0..lastidx] {
 			let basename = match Path::new(f).file_name() {
-				None => {
-					panic!("Invalid source filename {}", f)
-				}
-				Some(s) => { s }
+				None => panic!("Invalid source filename {}", f),
+				Some(s) => s,
 			};
 			let dstname = match dstpath.join(Path::new(basename)).to_str() {
-				None => {
-					panic!("Could not build a destination path for {} in {}", f, dstpath.display())
-				}
-				Some(s) => { s }
+				None => panic!("Could not build a destination path for {} in {}", f, dstpath.display()),
+				Some(s) => s,
 			}.to_string();
 			install_mimic(f, &dstname, &refname, verbose);
 		}
