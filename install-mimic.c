@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2016  Peter Pentchev
+ * Copyright (c) 2016, 2017  Peter Pentchev
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -221,7 +221,7 @@ main(int argc, char * const argv[])
 
 			const size_t fullsz = last_dir_len + !has_slash +
 			    strlen(base) + 1;
-			fullbuf = realloc(fullbuf, sz);
+			fullbuf = realloc(fullbuf, fullsz);
 			if (fullbuf == NULL)
 				err(1, "Could not allocate %zu bytes", fullsz);
 			snprintf_check(fullbuf, fullsz, "%s%s%s",

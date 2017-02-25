@@ -34,6 +34,9 @@ The source of the `install-mimic` utility may be obtained at
 ### 0.3.0 (not yet)
 
 - Add a Rust implementation.
+- Fix a memory allocation bug in the C implementation leading to
+  destination filename corruption when the target specified on
+  the command line is a directory.
 
 ### 0.2.0 (2016-06-29)
 
