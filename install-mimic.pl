@@ -37,7 +37,7 @@ my $verbose = 0;
 
 sub version()
 {
-	say 'install-mimic 0.2.0';
+	say 'install-mimic 0.3.0';
 }
 
 sub debug($)
