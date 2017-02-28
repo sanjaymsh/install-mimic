@@ -1,6 +1,6 @@
-install-mimic (0.2.0-2) UNRELEASED; urgency=medium
+install-mimic (0.3.0-1) UNRELEASED; urgency=medium
 
-  * Add the alloc patch to fix a memory allocation bug in the C implementation.
+  * New upstream release.
   * Update the upstream and debian/* copyright years.
 
  -- Peter Pentchev <roam@ringlet.net>  Sat, 25 Feb 2017 15:23:37 +0200
