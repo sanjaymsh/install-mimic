@@ -47,6 +47,13 @@ Some older versions are also available:
 
 ## Version history
 
+### 0.3.0 (2017-02-27)
+
+- Add a Rust implementation.
+- Fix a memory allocation bug in the C implementation leading to
+  destination filename corruption when the target specified on
+  the command line is a directory.
+
 ### 0.2.0 (2016-06-29)
 
 - Explicitly test the Perl 5 implementation in the "test" target.

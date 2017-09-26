@@ -31,6 +31,8 @@ PKG_TAR=	${PKG_DIR}/${PACKAGE}-${VERSION}.tar
 PROG?=		install-mimic
 MAN1?=		install-mimic.1.gz
 
+PROG_RS?=	target/debug/install-mimic
+
 STD_CPPFLAGS?=	-D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700
 
 LFS_CPPFLAGS?=	-D_FILE_OFFSET_BITS=64
@@ -92,22 +94,39 @@ ${PROG}.o:	${PROG}.c
 ${MAN1}:	${PROG}.1
 		${GZIP} -cn9 ${PROG}.1 > ${MAN1} || (rm -f -- ${MAN1}; false)
 
+${PROG_RS}:	${PROG}.rs
+#		rustc -o ${PROG_RS} ${PROG}.rs
+		cargo build
+
 install:	all
 		${MKDIR} ${DESTDIR}${BINDIR}
 		${INSTALL_SCRIPT} ${PROG} ${DESTDIR}${BINDIR}
 		${MKDIR} ${DESTDIR}${MANDIR}1
 		${INSTALL_DATA} ${MAN1} ${DESTDIR}${MANDIR}1
 
-test:		all install-mimic.pl
-		@printf "\n===== Testing the C implementation\n\n"
-		prove t
-
+test-perl:	install-mimic.pl
 		@printf "\n===== Testing the Perl 5 implementation\n\n"
 		[ -x install-mimic.pl ] || chmod +x install-mimic.pl
 		env INSTALL_MIMIC=./install-mimic.pl prove t
 
+test-c:		${PROG}
+		@printf "\n===== Testing the C implementation\n\n"
+		prove t
+
+test-rust:	${PROG_RS}
+		@printf "\n===== Testing the Rust implementation\n\n"
+		env INSTALL_MIMIC=./${PROG_RS} prove t
+
+test:		test-c test-perl
+
+test-all:	test-c test-perl test-rust
+
 clean:		index-clean
 		${RM} ${PROG} ${PROG}.o ${MAN1}
+		[ ! -d "target" ] || cargo clean
+
+distclean:	clean
+		${RM} Cargo.lock
 
 dist:
 		[ -n "$$ALLOW_DIST_DEV" ] || devver
@@ -119,7 +138,7 @@ dist:
 		rm -- "${PKG_TAR}"
 		@printf "\n===== Created %s.*\n\n" "${PKG_TAR}"
 
-.PHONY:		all install test clean dist
+.PHONY:		all install test-all test-c test-perl test-rust test clean dist
 
 %.html:		%.md
 		markdown "$<" > "$@" || (${RM} "$@"; false)
