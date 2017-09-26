@@ -2,7 +2,8 @@ install-mimic (0.3.0-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Update the upstream and debian/* copyright years.
-  * Drop the implied "Testsuite: autopkgtest" source control field.
+  * Update the package for compliance with Debian Policy 4.1.0:
+    - drop the implied "Testsuite: autopkgtest" source control field
 
  -- Peter Pentchev <roam@ringlet.net>  Tue, 26 Sep 2017 10:17:23 +0300
 
