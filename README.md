@@ -31,6 +31,8 @@ The source of the `install-mimic` utility may be obtained at
 
 ## Version history
 
+### 0.3.1 (not yet)
+
 ### 0.3.0 (2017-02-27)
 
 - Add a Rust implementation.
