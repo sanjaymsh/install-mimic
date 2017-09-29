@@ -33,6 +33,9 @@ The source of the `install-mimic` utility may be obtained at
 
 ### 0.3.1 (not yet)
 
+- In testing, get the file group from a new file created in
+  the test directory to fix the case of enforced setgid directories.
+
 ### 0.3.0 (2017-02-27)
 
 - Add a Rust implementation.
