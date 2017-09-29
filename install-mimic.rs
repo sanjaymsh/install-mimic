@@ -38,7 +38,7 @@ use getopts::Options;
 
 fn version()
 {
-	println!("install-mimic 0.3.0");
+	println!("install-mimic 0.3.1");
 }
 
 const USAGE_STR: &'static str = "Usage:	install-mimic [-v] [-r reffile] srcfile dstfile
