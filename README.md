@@ -29,14 +29,18 @@ The source of the `install-mimic` utility may be obtained at
 [its devel.ringlet.net homepage.][devel]  It is developed in
 [a GitHub Git repository.][github]
 
-The current version of `install-mimic` is **install_mimic-0.3.0**:
+The current version of `install-mimic` is **install_mimic-0.3.1**:
 
-- [install-mimic-0.3.0.tar.gz][im-0.3.0.tar.gz] [(sig)][im-0.3.0.tar.gz.asc]
-- [install-mimic-0.3.0.tar.bz2][im-0.3.0.tar.bz2] [(sig)][im-0.3.0.tar.bz2.asc]
-- [install-mimic-0.3.0.tar.xz][im-0.3.0.tar.xz] [(sig)][im-0.3.0.tar.xz.asc]
+- [install-mimic-0.3.1.tar.gz][im-0.3.1.tar.gz] [(sig)][im-0.3.1.tar.gz.asc]
+- [install-mimic-0.3.1.tar.bz2][im-0.3.1.tar.bz2] [(sig)][im-0.3.1.tar.bz2.asc]
+- [install-mimic-0.3.1.tar.xz][im-0.3.1.tar.xz] [(sig)][im-0.3.1.tar.xz.asc]
 
 Some older versions are also available:
 
+- install-mimic-0.3.0
+  + [install-mimic-0.3.0.tar.gz][im-0.3.0.tar.gz] [(sig)][im-0.3.0.tar.gz.asc]
+  + [install-mimic-0.3.0.tar.bz2][im-0.3.0.tar.bz2] [(sig)][im-0.3.0.tar.bz2.asc]
+  + [install-mimic-0.3.0.tar.xz][im-0.3.0.tar.xz] [(sig)][im-0.3.0.tar.xz.asc]
 - install-mimic-0.2.0
   + [install-mimic-0.2.0.tar.gz][im-0.2.0.tar.gz] [(sig)][im-0.2.0.tar.gz.asc]
   + [install-mimic-0.2.0.tar.bz2][im-0.2.0.tar.bz2] [(sig)][im-0.2.0.tar.bz2.asc]
@@ -118,3 +122,10 @@ Peter Pentchev <roam@ringlet.net>
 [im-0.3.0.tar.bz2.asc]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.3.0.tar.bz2.asc
 [im-0.3.0.tar.xz]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.3.0.tar.xz
 [im-0.3.0.tar.xz.asc]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.3.0.tar.xz.asc
+
+[im-0.3.1.tar.gz]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.3.1.tar.gz
+[im-0.3.1.tar.gz.asc]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.3.1.tar.gz.asc
+[im-0.3.1.tar.bz2]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.3.1.tar.bz2
+[im-0.3.1.tar.bz2.asc]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.3.1.tar.bz2.asc
+[im-0.3.1.tar.xz]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.3.1.tar.xz
+[im-0.3.1.tar.xz.asc]: https://devel.ringlet.net/files/misc/install-mimic/install-mimic-0.3.1.tar.xz.asc
