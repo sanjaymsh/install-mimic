@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2016  Peter Pentchev
+# Copyright (c) 2016, 2017  Peter Pentchev
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -45,24 +45,36 @@ sub spurt_attr($ $)
 	chmod $data->{mode}, $fname or
 	    die sprintf 'Could not set mode %4o on %s: %s\n',
 	    $data->{mode}, $fname, $!;
-	if ($> == 0) {
+	if ($> == 0 && defined $data->{owner}) {
 		chown $data->{owner}[0], $data->{owner}[1], $fname or
 		    die "Could not set owner $data->{owner}[0] and ".
 		    "group $data->{owner}[1] on $fname: $!\n";
 	}
 }
 
-sub get_non_root_owner()
+sub get_non_root_owner($)
 {
-	my @groups = split /\s+/, $), 2;
-	if ($groups[0] !~ /^ (?<egid> 0 | [1-9][0-9]* ) $/x) {
-		die "Invalid effective groups list '$)'\n";
-	}
-	my $o = [$>, $+{egid} + 0];
+	my ($d) = @_;
+
+	my $test_file = "$d/group-test.txt";
+	spurt_attr $test_file, {
+		contents => 'This is a test, is it not?',
+		mode => 0644,
+	};
+	my $stat = stat $test_file or
+	    die "Could not examine the test file $test_file: $!\n";
+	my $gid = $stat->gid;
+
+	my $o = [$>, $gid];
 	return $o unless $o->[0] == 0;
 
 	while (my @u = getpwent) {
-		return [$u[2], $u[3]] if $u[2] > 0;
+		# If the group ID of the created file is non-zero, then
+		# either we're not root (but this case should've been
+		# handled above), or we have a setgid directory.
+		# Either way, we should use/expect that group ID.
+		#
+		return [$u[2], $gid || $u[3]] if $u[2] > 0;
 	}
 	return $o;
 }
@@ -140,7 +152,7 @@ sub capture($ @)
 	return { exitcode => $status, lines => [ @data ] };
 }
 
-my $d = File::Temp->newdir(TEMPLATE => 'test-data.XXXXXX') or
+my $d = File::Temp->newdir(TEMPLATE => 'test-data.XXXXXX', TMPDIR => 1) or
     die "Could not create a temporary directory: $!\n";
 
 for my $comp (qw(src dst)) {
@@ -183,7 +195,7 @@ my %files = (
 	},
 );
 
-my $owner = get_non_root_owner;
+my $owner = get_non_root_owner $d;
 for my $f (keys %files) {
 	$_->{owner} = $owner for values %{$files{$f}};
 }

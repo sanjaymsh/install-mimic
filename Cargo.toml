@@ -1,6 +1,6 @@
 [package]
 name = "install-mimic"
-version = "0.3.0"
+version = "0.3.1"
 authors = ["Peter Pentchev <roam@ringlet.net>"]
  
 [[bin]]
