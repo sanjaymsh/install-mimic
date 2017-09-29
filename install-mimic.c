@@ -52,7 +52,7 @@ static bool		verbose;
 static void
 version(void)
 {
-	puts("install-mimic 0.3.1.dev1");
+	puts("install-mimic 0.3.1");
 }
 
 static void
