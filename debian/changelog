@@ -1,3 +1,9 @@
+install-mimic (0.3.1-1) UNRELEASED; urgency=medium
+
+  * New upstream release, should fix the kfreebsd-* FTBFS.
+
+ -- Peter Pentchev <roam@ringlet.net>  Fri, 29 Sep 2017 14:29:03 +0300
+
 install-mimic (0.3.0-1) unstable; urgency=medium
 
   * New upstream release.
