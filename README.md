@@ -35,6 +35,8 @@ The source of the `install-mimic` utility may be obtained at
 
 - In testing, get the file group from a new file created in
   the test directory to fix the case of enforced setgid directories.
+- Create the test temporary directory in the system's temporary path
+  to avoid future weird situations like the setgid case.
 
 ### 0.3.0 (2017-02-27)
 

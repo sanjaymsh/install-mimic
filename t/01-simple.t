@@ -152,7 +152,7 @@ sub capture($ @)
 	return { exitcode => $status, lines => [ @data ] };
 }
 
-my $d = File::Temp->newdir(TEMPLATE => 'test-data.XXXXXX') or
+my $d = File::Temp->newdir(TEMPLATE => 'test-data.XXXXXX', TMPDIR => 1) or
     die "Could not create a temporary directory: $!\n";
 
 for my $comp (qw(src dst)) {
