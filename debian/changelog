@@ -1,6 +1,8 @@
 install-mimic (0.3.1-2) UNRELEASED; urgency=medium
 
   * Declare compliance with Debian Policy 4.1.1 with no changes.
+  * Add "Rules-Requires-Root: no" to the source control stanza and
+    override the upstream Makefile's INSTALL_SCRIPT and INSTALL_DATA.
 
  -- Peter Pentchev <roam@ringlet.net>  Mon, 23 Oct 2017 12:00:37 +0300
 

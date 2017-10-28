@@ -13,5 +13,8 @@ override_dh_auto_build:
 	dh_auto_build
 	sed -ne '/^## Version history/,/^- First public release/p' README.md > changelog.md || (rm -f changelog.md; false)
 
+override_dh_auto_install:
+	dh_auto_install -- INSTALL_SCRIPT='install -m 755' INSTALL_DATA='install -m 644'
+
 %:
 	dh '$@'
