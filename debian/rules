@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 # Aim for the top, adapt if anything should break on the buildds.
-DEB_BUILD_MAINT_OPTIONS=	hardening=+all
+DEB_BUILD_MAINT_OPTIONS=	hardening=+all future=+lfs
 export DEB_BUILD_MAINT_OPTIONS
 
 ifneq (,$(filter werror,$(DEB_BUILD_OPTIONS)))
@@ -10,7 +10,7 @@ export DEB_CFLAGS_MAINT_APPEND
 endif
 
 override_dh_auto_build:
-	dh_auto_build
+	dh_auto_build -- LFS_CPPFLAGS= LFS_LDFLAGS=
 	sed -ne '/^## Version history/,/^- First public release/p' README.md > changelog.md || (rm -f changelog.md; false)
 
 override_dh_auto_install:
