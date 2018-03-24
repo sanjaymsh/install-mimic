@@ -2,7 +2,7 @@ Source: install-mimic
 Section: utils
 Priority: optional
 Maintainer: Peter Pentchev <roam@ringlet.net>
-Build-Depends: debhelper (>> 10.8~), perl
+Build-Depends: debhelper (>> 11~), perl
 Standards-Version: 4.1.3
 Homepage: https://devel.ringlet.net/misc/install-mimic/
 Vcs-Git: https://github.com/ppentchev/install-mimic.git -b debian
