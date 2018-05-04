@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2015, 2016  Peter Pentchev
+# Copyright (c) 2015, 2016, 2018  Peter Pentchev
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@ my $verbose = 0;
 
 sub version()
 {
-	say 'install-mimic 0.3.1';
+	say 'install-mimic 0.4.0';
 }
 
 sub debug($)

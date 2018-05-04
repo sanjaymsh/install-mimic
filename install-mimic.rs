@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2016, 2017  Peter Pentchev
+ * Copyright (c) 2016 - 2018  Peter Pentchev
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@ use getopts::Options;
 
 fn version()
 {
-	println!("install-mimic 0.3.1");
+	println!("install-mimic 0.4.0");
 }
 
 const USAGE_STR: &'static str = "Usage:	install-mimic [-v] [-r reffile] srcfile dstfile

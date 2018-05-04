@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2016, 2017  Peter Pentchev
+ * Copyright (c) 2016 - 2018  Peter Pentchev
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,7 @@ static bool		verbose;
 static void
 version(void)
 {
-	puts("install-mimic 0.3.1");
+	puts("install-mimic 0.4.0");
 }
 
 static void
