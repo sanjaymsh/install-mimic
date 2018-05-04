@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2016, 2017  Peter Pentchev
+ * Copyright (c) 2016 - 2018  Peter Pentchev
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,12 +47,14 @@
 #endif
 #endif
 
+#define VERSION_STRING	"0.4.0"
+
 static bool		verbose;
 
 static void
 version(void)
 {
-	puts("install-mimic 0.3.1");
+	puts("install-mimic " VERSION_STRING);
 }
 
 static void
@@ -61,7 +63,8 @@ usage(const bool _ferr)
 	const char * const s =
 	    "Usage:\tinstall-mimic [-v] [-r reffile] srcfile dstfile\n"
 	    "\tinstall-mimic [-v] [-r reffile] file1 [file2...] directory\n"
-	    "\tinstall-mimic -V | -h\n"
+	    "\tinstall-mimic -V | --version | -h | --help\n"
+	    "\tinstall-mimic --features\n"
 	    "\n"
 	    "\t-h\tdisplay program usage information and exit\n"
 	    "\t-r\tspecify a reference file to obtain the information from\n"
@@ -164,10 +167,10 @@ static bool is_dir(const char * const path, const bool has_ref)
 int
 main(int argc, char * const argv[])
 {
-	bool hflag = false, Vflag = false;
+	bool features = false, hflag = false, Vflag = false;
 	const char *ref = NULL;
 	int ch;
-	while (ch = getopt(argc, argv, "hr:Vv"), ch != -1)
+	while (ch = getopt(argc, argv, "hr:Vv-:"), ch != -1)
 		switch (ch) {
 			case 'h':
 				hflag = true;
@@ -185,6 +188,17 @@ main(int argc, char * const argv[])
 				verbose = true;
 				break;
 
+			case '-':
+				if (strcmp(optarg, "features") == 0)
+					features = true;
+				else if (strcmp(optarg, "help") == 0)
+					hflag = true;
+				else if (strcmp(optarg, "version") == 0)
+					Vflag = true;
+				else
+					usage(1);
+				break;
+
 			default:
 				usage(1);
 				/* NOTREACHED */
@@ -193,7 +207,9 @@ main(int argc, char * const argv[])
 		version();
 	if (hflag)
 		usage(false);
-	if (Vflag || hflag)
+	if (features)
+		puts("Features: install-mimic=" VERSION_STRING);
+	if (Vflag || hflag || features)
 		return (0);
 
 	argc -= optind;

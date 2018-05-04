@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2015, 2016  Peter Pentchev
+# Copyright (c) 2015, 2016, 2018  Peter Pentchev
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -33,11 +33,12 @@ use File::Basename;
 use Getopt::Std;
 use POSIX ':sys_wait_h';
 
+my $version_string = '0.4.0';
 my $verbose = 0;
 
 sub version()
 {
-	say 'install-mimic 0.3.1';
+	say "install-mimic $version_string";
 }
 
 sub debug($)
@@ -119,7 +120,8 @@ sub usage(;$)
 	my $s = <<EOUSAGE
 Usage:	install-mimic [-v] [-r reffile] srcfile dstfile
 	install-mimic [-v] [-r reffile] file1 [file2...] directory
-	install-mimic -V | -h
+	install-mimic -V | --version | -h | --help
+	install-mimic --features
 
 	-h	display program usage information and exit
 	-V	display program version information and exit
@@ -139,10 +141,28 @@ MAIN:
 {
 	my %opts;
 
-	getopts('hr:Vv', \%opts) or usage;
-	version if $opts{V};
-	usage 0 if $opts{h};
-	exit 0 if $opts{V} || $opts{h};
+	getopts('hr:Vv-:', \%opts) or usage;
+	my $Vflag = $opts{V};
+	my $hflag = $opts{h};
+	my $features;
+	if (defined $opts{'-'}) {
+		if ($opts{'-'} eq 'features') {
+			$features = 1;
+		} elsif ($opts{'-'} eq 'help') {
+			$hflag = 1;
+		} elsif ($opts{'-'} eq 'version') {
+			$Vflag = 1;
+		} else {
+			usage;
+		}
+	}
+	version if $Vflag;
+	usage 0 if $hflag;
+	if ($features) {
+		say "Features: install-mimic=$version_string";
+	}
+	exit 0 if $Vflag || $hflag || $features;
+
 	$verbose = $opts{v};
 
 	my $ref = $opts{r};
