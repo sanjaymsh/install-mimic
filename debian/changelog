@@ -3,7 +3,8 @@ install-mimic (0.4.0-1) UNRELEASED; urgency=medium
   * Declare compliance with Debian Policy 4.1.4 with no changes.
   * Add "Rules-Requires-Root: no" to the source control stanza and
     override the upstream Makefile's INSTALL_SCRIPT and INSTALL_DATA.
-  * Bump the debhelper compatibility level to 11.
+  * Bump the debhelper compatibility level to 11 using the new
+    B-D: debhelper-compat (= 11) mechanism.
   * Let dpkg-buildflags take care of the LFS compiler and linker flags.
   * Add the year 2018 to my debian/* copyright notice.
   * New upstream release, update the upstream copyright years.
