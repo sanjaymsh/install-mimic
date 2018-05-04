@@ -43,7 +43,7 @@ fn version()
 
 const USAGE_STR: &'static str = "Usage:	install-mimic [-v] [-r reffile] srcfile dstfile
 	install-mimic [-v] [-r reffile] file1 [file2...] directory
-	install-mimic -V | -h
+	install-mimic -V | --version | -h | --help
 
 	-h	display program usage information and exit
 	-V	display program version information and exit

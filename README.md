@@ -33,6 +33,8 @@ The source of the `install-mimic` utility may be obtained at
 
 ### 0.4.0 (not yet)
 
+- Add the `--help` and `--version` long options.
+
 ### 0.3.1 (2017-09-29)
 
 - In testing, get the file group from a new file created in

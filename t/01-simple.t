@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2016, 2017  Peter Pentchev
+# Copyright (c) 2016 - 2018  Peter Pentchev
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -202,7 +202,7 @@ for my $f (keys %files) {
 
 my $prog = $ENV{INSTALL_MIMIC} // './install-mimic';
 
-plan tests => 82;
+plan tests => 87;
 
 my $c = capture(1, $prog);
 isnt $c->{exitcode}, 0, "$prog with no parameters failed";
@@ -219,15 +219,26 @@ is scalar @{$c->{lines}}, 0, "$prog with a single filename parameter output noth
 $c = capture(0, $prog, '-V');
 is $c->{exitcode}, 0, "$prog -V succeeded";
 is scalar @{$c->{lines}}, 1, "$prog -V output a single line";
+my $version_line = $c->{lines}[0];
+
+$c = capture(0, $prog, '--version');
+is $c->{exitcode}, 0, "$prog --version succeeded";
+is scalar @{$c->{lines}}, 1, "$prog --version output a single line";
+is $c->{lines}[0], $version_line, "$prog --version output the same as $prog -V";
 
 $c = capture(0, $prog, '-h');
 is $c->{exitcode}, 0, "$prog -h succeeded";
+my @usage_lines = @{$c->{lines}};
 my $h_lines = scalar @{$c->{lines}};
-ok $h_lines > 1, "$prog -h output more than one line";
+ok scalar @usage_lines > 1, "$prog -h output more than one line";
+
+$c = capture(0, $prog, '--help');
+is $c->{exitcode}, 0, "$prog --help succeeded";
+is_deeply $c->{lines}, \@usage_lines, "$prog --help output the same as $prog -h";
 
 $c = capture(0, $prog, '-h', '-V');
 is $c->{exitcode}, 0, "$prog -h -V succeeded";
-is scalar @{$c->{lines}}, $h_lines + 1, "$prog -h -V output one line more than $prog -h";
+is scalar @{$c->{lines}}, scalar @usage_lines + 1, "$prog -h -V output one line more than $prog -h";
 
 # OK, let's start doing stuff
 reinit_test_data $d, \%files;

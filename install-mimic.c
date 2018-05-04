@@ -61,7 +61,7 @@ usage(const bool _ferr)
 	const char * const s =
 	    "Usage:\tinstall-mimic [-v] [-r reffile] srcfile dstfile\n"
 	    "\tinstall-mimic [-v] [-r reffile] file1 [file2...] directory\n"
-	    "\tinstall-mimic -V | -h\n"
+	    "\tinstall-mimic -V | --version | -h | --help\n"
 	    "\n"
 	    "\t-h\tdisplay program usage information and exit\n"
 	    "\t-r\tspecify a reference file to obtain the information from\n"
@@ -167,7 +167,7 @@ main(int argc, char * const argv[])
 	bool hflag = false, Vflag = false;
 	const char *ref = NULL;
 	int ch;
-	while (ch = getopt(argc, argv, "hr:Vv"), ch != -1)
+	while (ch = getopt(argc, argv, "hr:Vv-:"), ch != -1)
 		switch (ch) {
 			case 'h':
 				hflag = true;
@@ -183,6 +183,15 @@ main(int argc, char * const argv[])
 
 			case 'v':
 				verbose = true;
+				break;
+
+			case '-':
+				if (strcmp(optarg, "help") == 0)
+					hflag = true;
+				else if (strcmp(optarg, "version") == 0)
+					Vflag = true;
+				else
+					usage(1);
 				break;
 
 			default:

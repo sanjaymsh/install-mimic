@@ -119,7 +119,7 @@ sub usage(;$)
 	my $s = <<EOUSAGE
 Usage:	install-mimic [-v] [-r reffile] srcfile dstfile
 	install-mimic [-v] [-r reffile] file1 [file2...] directory
-	install-mimic -V | -h
+	install-mimic -V | --version | -h | --help
 
 	-h	display program usage information and exit
 	-V	display program version information and exit
@@ -139,10 +139,22 @@ MAIN:
 {
 	my %opts;
 
-	getopts('hr:Vv', \%opts) or usage;
-	version if $opts{V};
-	usage 0 if $opts{h};
-	exit 0 if $opts{V} || $opts{h};
+	getopts('hr:Vv-:', \%opts) or usage;
+	my $Vflag = $opts{V};
+	my $hflag = $opts{h};
+	if (defined $opts{'-'}) {
+		if ($opts{'-'} eq 'help') {
+			$hflag = 1;
+		} elsif ($opts{'-'} eq 'version') {
+			$Vflag = 1;
+		} else {
+			usage;
+		}
+	}
+	version if $Vflag;
+	usage 0 if $hflag;
+	exit 0 if $Vflag || $hflag;
+
 	$verbose = $opts{v};
 
 	my $ref = $opts{r};
