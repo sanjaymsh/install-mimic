@@ -202,7 +202,7 @@ for my $f (keys %files) {
 
 my $prog = $ENV{INSTALL_MIMIC} // './install-mimic';
 
-plan tests => 87;
+plan tests => 90;
 
 my $c = capture(1, $prog);
 isnt $c->{exitcode}, 0, "$prog with no parameters failed";
@@ -239,6 +239,12 @@ is_deeply $c->{lines}, \@usage_lines, "$prog --help output the same as $prog -h"
 $c = capture(0, $prog, '-h', '-V');
 is $c->{exitcode}, 0, "$prog -h -V succeeded";
 is scalar @{$c->{lines}}, scalar @usage_lines + 1, "$prog -h -V output one line more than $prog -h";
+
+$c = capture(0, $prog, '--features');
+is $c->{exitcode}, 0, "$prog --features succeeded";
+is scalar @{$c->{lines}}, 1, "$prog --features output a single line";
+like $c->{lines}[0], qr{^ Features: \s+ .* \b install-mimic = \w+ \b }x,
+    "$prog --features output a Features line containing install-mimic";
 
 # OK, let's start doing stuff
 reinit_test_data $d, \%files;

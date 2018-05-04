@@ -34,6 +34,7 @@ The source of the `install-mimic` utility may be obtained at
 ### 0.4.0 (not yet)
 
 - Add the `--help` and `--version` long options.
+- Add the `--features` long option.
 
 ### 0.3.1 (2017-09-29)
 

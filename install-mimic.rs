@@ -36,23 +36,31 @@ use std::process::Command;
 
 use getopts::Options;
 
-fn version()
-{
-	println!("install-mimic 0.4.0");
-}
-
 const USAGE_STR: &'static str = "Usage:	install-mimic [-v] [-r reffile] srcfile dstfile
 	install-mimic [-v] [-r reffile] file1 [file2...] directory
 	install-mimic -V | --version | -h | --help
+	install-mimic --features
 
 	-h	display program usage information and exit
 	-V	display program version information and exit
 	-r	specify a reference file to obtain the information from
 	-v	verbose operation; display diagnostic output";
 
+const VERSION_STR: &'static str = "0.4.0";
+
+fn version()
+{
+	println!("install-mimic {}", VERSION_STR);
+}
+
 fn usage() -> !
 {
 	panic!("{}", USAGE_STR)
+}
+
+fn features()
+{
+	println!("Features: install-mimic={}", VERSION_STR);
 }
 
 fn stat_fatal(fname: &str) -> fs::Metadata
@@ -97,6 +105,7 @@ fn main()
 	let args: Vec<String> = env::args().collect();
 
 	let mut optargs = Options::new();
+	optargs.optflag("", "features", "display program features information and exit");
 	optargs.optflag("h", "help", "display program usage information and exit");
 	optargs.optopt("r", "", "specify a reference file to obtain the information from", "");
 	optargs.optflag("V", "version", "display program version information and exit");
@@ -114,7 +123,10 @@ fn main()
 	if opts.opt_present("h") {
 		println!("{}", USAGE_STR);
 	}
-	if opts.opt_present("h") || opts.opt_present("V") {
+	if opts.opt_present("features") {
+		features();
+	}
+	if opts.opt_present("h") || opts.opt_present("V") || opts.opt_present("features") {
 		return;
 	}
 	let refname = opts.opt_str("r");
