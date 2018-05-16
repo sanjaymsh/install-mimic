@@ -1,0 +1,11 @@
+[package]
+name = "install-mimic"
+version = "0.4.0"
+authors = ["Peter Pentchev <roam@ringlet.net>"]
+ 
+[[bin]]
+name = "install-mimic"
+path = "install-mimic.rs"
+
+[dependencies]
+getopts = "0.2"

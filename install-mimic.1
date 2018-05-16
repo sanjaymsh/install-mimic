@@ -1,0 +1,100 @@
+.\" Copyright (c) 2015  Peter Pentchev
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.Dd June 2, 2015
+.Dt INSTALL-MIMIC 1
+.Os
+.Sh NAME
+.Nm install-mimic
+.Nd overwrite files preserving the destination's ownership and access mode
+.Sh SYNOPSIS
+.Nm
+.Op Fl v
+.Op Fl r Ar reffile
+.Ar srcfile
+.Ar dstfile
+.Nm
+.Op Fl v
+.Op Fl r Ar reffile
+.Ar file1
+.Op Ar file2...
+.Ar directory
+.Nm
+.Fl V | Fl h
+.Sh DESCRIPTION
+The
+.Nm
+utility copies the specified files to the specified destination (file or
+directory) similarly to
+.Xr install 1 ,
+but it preserves the ownership and access mode of the destination files.
+This is useful when updating files that have already been installed with
+locally modified copies that may be owned by the current user and not by
+the desired owner of the destination file (e.g. root).
+.Pp
+Options:
+.Bl -tag -width indent
+.It Fl h
+Display program usage information and exit.
+.It Fl r
+Specify a file to obtain the ownership and access information from;
+useful when installing a new file that should be similar to other files in
+the same location.
+.It Fl V
+Display program version information and exit.
+.It Fl v
+Verbose operation; display diagnostic output.
+.El
+.Sh RETURN VALUES
+.Ex -std
+.Sh ENVIRONMENT
+The
+.Nm
+utility's operation is currently not directly affected by its environment.
+.Sh FILES
+The
+.Nm
+utility's operation is currently not directly affected by any files.
+.Sh EXAMPLES
+Overwrite a system file with a local copy:
+.Pp
+.Dl install-mimic ./install-mimic.pl /usr/bin/install-mimic
+.Pp
+Overwrite several files with local copies with the same name:
+.Pp
+.Dl install-mimic cinder/*.py /usr/lib/python2.7/dist-packages/cinder/
+.Pp
+Install a new file similar to a system file:
+.Pp
+.Dl install-mimic -v -r /usr/bin/install-mimic install-none /usr/bin/
+.Pp
+.Sh HISTORY
+The
+.Nm
+utility was written by
+.An Peter Pentchev
+in 2015.
+.Sh AUTHORS
+.An Peter Penchev
+.Aq roam@ringlet.net
