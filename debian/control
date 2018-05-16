@@ -1,7 +1,7 @@
 Source: install-mimic
 Section: utils
 Priority: optional
-Maintainer: Peter Pentchev <roam@ringlet.net>
+Maintainer: Peter Pentchev <roam@debian.org>
 Build-Depends: debhelper-compat (= 11), perl
 Standards-Version: 4.1.4
 Homepage: https://devel.ringlet.net/misc/install-mimic/

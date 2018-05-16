@@ -8,8 +8,9 @@ install-mimic (0.4.0-1) UNRELEASED; urgency=medium
   * Let dpkg-buildflags take care of the LFS compiler and linker flags.
   * Add the year 2018 to my debian/* copyright notice.
   * New upstream release, update the upstream copyright years.
+  * Use my Debian e-mail address.
 
- -- Peter Pentchev <roam@ringlet.net>  Fri, 04 May 2018 16:50:32 +0300
+ -- Peter Pentchev <roam@debian.org>  Fri, 04 May 2018 16:50:32 +0300
 
 install-mimic (0.3.1-1) unstable; urgency=medium
 
