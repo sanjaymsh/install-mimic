@@ -1,4 +1,4 @@
-install-mimic (0.4.0-1) UNRELEASED; urgency=medium
+install-mimic (0.4.0-1) unstable; urgency=medium
 
   * Declare compliance with Debian Policy 4.1.4 with no changes.
   * Add "Rules-Requires-Root: no" to the source control stanza and
@@ -10,7 +10,7 @@ install-mimic (0.4.0-1) UNRELEASED; urgency=medium
   * New upstream release, update the upstream copyright years.
   * Use my Debian e-mail address.
 
- -- Peter Pentchev <roam@debian.org>  Fri, 04 May 2018 16:50:32 +0300
+ -- Peter Pentchev <roam@debian.org>  Wed, 16 May 2018 13:58:25 +0300
 
 install-mimic (0.3.1-1) unstable; urgency=medium
 
