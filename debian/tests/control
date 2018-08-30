@@ -1,2 +1,8 @@
 Test-Command: env INSTALL_MIMIC='/usr/bin/install-mimic' prove -v t
 Depends: @, perl
+
+Test-Command: adequate install-mimic
+Depends: @, adequate
+
+Test-Command: feature-check install-mimic install-mimic
+Depends: @, feature-check
