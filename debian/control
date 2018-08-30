@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Peter Pentchev <roam@debian.org>
 Build-Depends: debhelper-compat (= 11), perl
-Standards-Version: 4.1.4
+Standards-Version: 4.2.1
 Homepage: https://devel.ringlet.net/misc/install-mimic/
 Vcs-Git: https://github.com/ppentchev/install-mimic.git -b debian
 Vcs-Browser: https://github.com/ppentchev/install-mimic/tree/debian
