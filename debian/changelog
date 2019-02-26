@@ -2,7 +2,6 @@ install-mimic (0.4.0-4) UNRELEASED; urgency=medium
 
   * Switch to a DEP-14 debian/master branch.
   * Use the test-name autopkgtest feature.
-  * Add a simple git-buildpackage config file.
 
  -- Peter Pentchev <roam@debian.org>  Tue, 26 Feb 2019 23:38:51 +0200
 
