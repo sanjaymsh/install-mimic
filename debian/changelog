@@ -1,0 +1,61 @@
+install-mimic (0.4.0-4) unstable; urgency=medium
+
+  * Switch to a DEP-14 debian/master branch.
+  * Use the test-name autopkgtest feature.
+
+ -- Peter Pentchev <roam@debian.org>  Tue, 26 Feb 2019 23:49:30 +0200
+
+install-mimic (0.4.0-3) unstable; urgency=medium
+
+  * Declare compliance with Debian Policy 4.3.0 with no changes.
+  * Bump the debhelper compatibility level to 12 with no changes.
+  * Add the year 2019 to my debian/* copyright notice.
+  * Add a trivial git-buildpackage config file.
+
+ -- Peter Pentchev <roam@debian.org>  Tue, 15 Jan 2019 16:52:25 +0200
+
+install-mimic (0.4.0-2) unstable; urgency=medium
+
+  * Bring up to compliance with Debian Policy 4.2.1: install the extracted
+    upstream release notes as NEWS and not changelog.
+  * Drop the Lintian overrides related to B-D: debhelper-compat -
+    Lintian 2.5.98 no longer emits these warnings and errors.
+  * Add trivial autopkgtests running adequate and feature-check.
+  * Minimize the upstream signing key, only keep the roam@ringlet.net UID.
+
+ -- Peter Pentchev <roam@debian.org>  Sat, 15 Dec 2018 02:57:17 +0200
+
+install-mimic (0.4.0-1) unstable; urgency=medium
+
+  * Declare compliance with Debian Policy 4.1.4 with no changes.
+  * Add "Rules-Requires-Root: no" to the source control stanza and
+    override the upstream Makefile's INSTALL_SCRIPT and INSTALL_DATA.
+  * Bump the debhelper compatibility level to 11 using the new
+    B-D: debhelper-compat (= 11) mechanism.
+  * Let dpkg-buildflags take care of the LFS compiler and linker flags.
+  * Add the year 2018 to my debian/* copyright notice.
+  * New upstream release, update the upstream copyright years.
+  * Use my Debian e-mail address.
+
+ -- Peter Pentchev <roam@debian.org>  Wed, 16 May 2018 13:58:25 +0300
+
+install-mimic (0.3.1-1) unstable; urgency=medium
+
+  * New upstream release, should fix the kfreebsd-* FTBFS.
+
+ -- Peter Pentchev <roam@ringlet.net>  Fri, 29 Sep 2017 14:31:37 +0300
+
+install-mimic (0.3.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update the upstream and debian/* copyright years.
+  * Update the package for compliance with Debian Policy 4.1.0:
+    - drop the implied "Testsuite: autopkgtest" source control field
+
+ -- Peter Pentchev <roam@ringlet.net>  Tue, 26 Sep 2017 10:38:30 +0300
+
+install-mimic (0.2.0-1) unstable; urgency=low
+
+  * Initial release. Closes: #828913.
+
+ -- Peter Pentchev <roam@ringlet.net>  Thu, 17 Nov 2016 11:25:58 +0200
