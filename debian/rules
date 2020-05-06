@@ -9,12 +9,15 @@ DEB_CFLAGS_MAINT_APPEND=	-Werror
 export DEB_CFLAGS_MAINT_APPEND
 endif
 
-override_dh_auto_build:
-	dh_auto_build -- LFS_CPPFLAGS= LFS_LDFLAGS=
-	sed -ne '/^## Version history/,/^- First public release/p' README.md > NEWS.md || (rm -f NEWS.md; false)
+export LFS_CPPFLAGS=
+export LFS_LDFLAGS=
 
-override_dh_auto_install:
-	dh_auto_install -- INSTALL_SCRIPT='install -m 755' INSTALL_DATA='install -m 644'
+export INSTALL_DATA=	install -m 644
+export INSTALL_SCRIPT=	install -m 755
+
+override_dh_auto_build:
+	dh_auto_build
+	sed -ne '/^## Version history/,/^- First public release/p' README.md > NEWS.md || (rm -f NEWS.md; false)
 
 override_dh_installchangelogs:
 	dh_installchangelogs
