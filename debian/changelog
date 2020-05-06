@@ -1,4 +1,4 @@
-install-mimic (0.4.0-5) UNRELEASED; urgency=medium
+install-mimic (0.4.0-5) unstable; urgency=medium
 
   * Declare compliance with Debian Policy 4.5.0 with no changes.
   * Add the year 2020 to my debian/* copyright notice.
