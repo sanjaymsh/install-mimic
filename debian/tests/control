@@ -5,3 +5,4 @@ Features: test-name=upstream
 Test-Command: feature-check install-mimic install-mimic
 Depends: @, feature-check
 Features: test-name=feature-check
+Restrictions: superficial
