@@ -1,8 +1,14 @@
 install-mimic (0.4.0-5) UNRELEASED; urgency=medium
 
   * Declare compliance with Debian Policy 4.5.0 with no changes.
+  * Add the year 2020 to my debian/* copyright notice.
+  * Drop the adequate autopkgtest.
+  * Mark the feature-check autopkgtest as superficial.
+  * Drop the Name and Contact upstream metadata fields.
+  * Set some environment variables for the whole run.
+  * Bump the debhelper compat level to 13, use execute_after.
 
- -- Peter Pentchev <roam@debian.org>  Thu, 07 May 2020 00:43:46 +0300
+ -- Peter Pentchev <roam@debian.org>  Thu, 07 May 2020 01:08:21 +0300
 
 install-mimic (0.4.0-4) unstable; urgency=medium
 
